@@ -1,10 +1,12 @@
 import cv2
 import numpy as np
 import mss
+from pykeyboard import PyKeyboard
 import time
 
 sct = mss.mss()
 bbox = {'top': 50, 'left': 0, 'width': 800, 'height': 600}
+k = PyKeyboard()
 
 
 def process(image):
@@ -14,7 +16,13 @@ def process(image):
 
 
 def main():
+
+    for i in list(range(5))[::-1]:
+        print(i+1)
+        time.sleep(1)
+
     while True:
+        k.press_key('a')
         # last_time = time.time()
         sct_img = sct.grab(bbox)
         src = np.array(sct_img)
@@ -23,6 +31,7 @@ def main():
         cv2.imshow('test', process(src))
         key = cv2.waitKey(1)
         if key is 27:
+            k.release_key('a')
             break
     cv2.destroyAllWindows()
 
