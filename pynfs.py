@@ -12,7 +12,7 @@ k = PyKeyboard()
 def process(image):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     processed_image = cv2.Canny(gray_image, 100, 200)
-    vertices = np.array([[0, 600], [0, 500], [250, 400], [450, 400], [800, 500]])
+    vertices = np.array([[0, 600], [0, 400], [250, 325], [450, 325], [800, 400], [800, 600]])
     processed_image = roi(processed_image, [vertices])
     return processed_image
 
@@ -30,7 +30,7 @@ def main():
         time.sleep(1)
 
     while True:
-        k.press_key('a')
+        #k.press_key('a')
         # last_time = time.time()
         sct_img = sct.grab(bbox)
         src = np.array(sct_img)
@@ -39,7 +39,7 @@ def main():
         cv2.imshow('test', process(src))
         key = cv2.waitKey(1)
         if key is 27:
-            k.release_key('a')
+            #k.release_key('a')
             break
     cv2.destroyAllWindows()
 
