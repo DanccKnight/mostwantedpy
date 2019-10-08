@@ -11,14 +11,22 @@ k = PyKeyboard()
 
 def process(image):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    processed_image = cv2.Canny(gray_image, 200, 300)
+    processed_image = cv2.Canny(gray_image, 100, 200)
+    vertices = np.array([[0, 600], [0, 500], [250, 400], [450, 400], [800, 500]])
+    processed_image = roi(processed_image, [vertices])
     return processed_image
 
 
-def main():
+def roi(img, vertices):
+    mask = np.zeros_like(img)
+    cv2.fillPoly(mask, vertices, 255)
+    masked = cv2.bitwise_and(img, mask)
+    return masked
 
+
+def main():
     for i in list(range(5))[::-1]:
-        print(i+1)
+        print(i + 1)
         time.sleep(1)
 
     while True:
