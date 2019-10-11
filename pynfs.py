@@ -14,8 +14,8 @@ def draw_lines(img, lines):
         for line in lines:
             #print(line)
             coordinates = line[0]
-            cv2.line(img, (coordinates[0], coordinates[1]), (coordinates[2], coordinates[3]), [255, 255, 255], 3)
-    except:
+            cv2.line(img, (coordinates[0], coordinates[1]), (coordinates[2], coordinates[3]), [255, 255, 255], 4)
+    except Exception as e:
         pass
 
 
@@ -23,9 +23,9 @@ def process(image):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     processed_image = cv2.Canny(gray_image, 200, 300)
     processed_image = cv2.GaussianBlur(processed_image, (5, 5), 0)
-    vertices = np.array([[0, 600], [0, 400], [250, 300], [450, 300], [800, 400], [800, 600]])
+    vertices = np.array([[0, 500], [0, 350], [250, 250], [500, 250], [800, 350], [800, 500]])
     processed_image = roi(processed_image, [vertices])
-    lines = cv2.HoughLinesP(processed_image, 1, np.pi / 180, 100, 20, 15)
+    lines = cv2.HoughLinesP(processed_image, 1, np.pi / 180, 200, 110, 15)
     draw_lines(processed_image, lines)
     return processed_image
 
